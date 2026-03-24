@@ -1,9 +1,10 @@
 import { AvailableLanguage } from "@/lang";
 import { bookData } from "@/utils/config";
 import { fetchScripture } from "@/utils/scripture";
+import { Suggestion } from "./Suggestion";
+import { VerseLinkSuggestion } from "./VerseLinkSuggestion";
 
-export class VerseSuggestion {
-    // defining variables in the class.
+export class VerseSuggestion implements Suggestion {
     public text: string;
     public previewText: string;
     private bookTitleInLanguage: string;
@@ -69,6 +70,8 @@ export class VerseSuggestion {
                 return [name, volume];
             }
         }
+
+        console.error(`Could not find book with title ${bookTitle}`);
         return ["", ""];
     }
 
@@ -113,5 +116,13 @@ export class VerseSuggestion {
     public render(el: HTMLElement): void {
         const outer = el.createDiv({ cls: "obr-suggester-container" });
         outer.createDiv({ cls: "obr-shortcode" }).setText(this.previewText);
+    }
+
+    public toVerseLinkSuggestion(): VerseLinkSuggestion {
+        return new VerseLinkSuggestion(
+            this.url,
+            this.bookTitleInLanguage,
+            this.verseString,
+        );
     }
 }

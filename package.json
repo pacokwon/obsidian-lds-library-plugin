@@ -18,6 +18,9 @@
     "license": "MIT",
     "devDependencies": {
         "@biomejs/biome": "2.2.5",
+        "@codemirror/language": "^6.11.3",
+        "@codemirror/state": "^6.5.2",
+        "@codemirror/view": "^6.38.6",
         "@types/node": "22.18.8",
         "builtin-modules": "5.0.0",
         "esbuild": "0.25.10",

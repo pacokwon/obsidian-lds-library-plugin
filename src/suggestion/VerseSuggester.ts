@@ -8,12 +8,14 @@ import {
 } from "obsidian";
 import LdsLibraryPlugin from "@/LdsLibraryPlugin";
 import { isAvailableLanguage } from "@/lang";
+import { Suggestion } from "./Suggestion";
 import { VerseSuggestion } from "./VerseSuggestion";
 
 const FULL_VERSE_REG =
-    /^:(?:\[(\w{3})\]\s+)?([123]*[A-z ]{3,}) (\d{1,3})(?:\s+|:)(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*):$/i;
+    /^:(?:\[(\w{3})\]\s+)?([123]*[A-z &]{3,}) (\d{1,3})(?:\s+|:)(\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*):$/i;
+//      optional lang tag |book name          |chapter |ws or : |verse number or verse range|
 
-export class VerseSuggester extends EditorSuggest<VerseSuggestion> {
+export class VerseSuggester extends EditorSuggest<Suggestion> {
     constructor(public plugin: LdsLibraryPlugin) {
         super(plugin.app);
     }
@@ -40,9 +42,7 @@ export class VerseSuggester extends EditorSuggest<VerseSuggestion> {
         };
     }
 
-    async getSuggestions(
-        context: EditorSuggestContext,
-    ): Promise<VerseSuggestion[]> {
+    async getSuggestions(context: EditorSuggestContext): Promise<Suggestion[]> {
         const { language: preferredLanguage } = this.plugin.settings;
         const { query } = context;
 
@@ -64,15 +64,15 @@ export class VerseSuggester extends EditorSuggest<VerseSuggestion> {
             verseString,
             language,
         );
-        return [suggestion];
+        return [suggestion, suggestion.toVerseLinkSuggestion()];
     }
 
-    renderSuggestion(suggestion: VerseSuggestion, el: HTMLElement): void {
+    renderSuggestion(suggestion: Suggestion, el: HTMLElement): void {
         suggestion.render(el);
     }
 
     selectSuggestion(
-        suggestion: VerseSuggestion,
+        suggestion: Suggestion,
         _: MouseEvent | KeyboardEvent,
     ): void {
         if (!this.context) return;

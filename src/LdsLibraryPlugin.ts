@@ -1,7 +1,9 @@
+import { hoverTooltip } from "@codemirror/view";
 import { Plugin } from "obsidian";
 import { DEFAULT_SETTINGS, LdsLibrarySettings } from "@/settings";
 import { VerseSuggester } from "@/suggestion/VerseSuggester";
 import { LdsLibrarySettingTab } from "@/ui/SettingTab";
+import { linkViewPlugin } from "./extension/linkViewPlugin";
 import { ConferenceSuggester } from "./suggestion/ConferenceSuggester";
 
 export default class LdsLibraryPlugin extends Plugin {
@@ -12,6 +14,7 @@ export default class LdsLibraryPlugin extends Plugin {
         this.addSettingTab(new LdsLibrarySettingTab(this.app, this));
         this.registerEditorSuggest(new VerseSuggester(this));
         this.registerEditorSuggest(new ConferenceSuggester(this));
+        this.registerEditorExtension(linkViewPlugin);
     }
 
     async loadSettings() {
