@@ -37,8 +37,8 @@ This plugin can be found from the list of community plugins for Obsidian. Open O
 
 The plugin can also be manually installed by:
 
-1. Creating a directory called `lds-library-plugin` under `.obsidian/plugins/` within your vault.
-2. From this plugin's [Releases Page](https://github.com/pacokwon/obsidian-lds-library-plugin/releases), download and put `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lds-library-reference/`.
+1. Creating a directory called `lds-scriptures-reference` under `.obsidian/plugins/` within your vault.
+2. From this plugin's [Releases Page](https://github.com/pacokwon/obsidian-lds-library-plugin/releases), download and put `main.js`, `manifest.json`, `styles.css` into `.obsidian/plugins/lds-scriptures-reference/`.
 3. Reload Obsidian and navigate to the `Community Plugins` tab to see that installation is successful.
 4. Ensure the plugin is then enabled.
 

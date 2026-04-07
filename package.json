@@ -1,6 +1,6 @@
 {
-    "name": "lds-library-reference",
-    "version": "2.0.0",
+    "name": "lds-scriptures-reference",
+    "version": "2.0.2",
     "description": "Easily insert references to scripture and conference talks from the Church of Jesus Christ of Latter-day Saints",
     "main": "main.js",
     "scripts": {

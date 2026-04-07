@@ -26,12 +26,12 @@ export const bookData: BookData = {
     "js-m": {
         volume: "pgp",
         n_ch: 1,
-        names: ["Joseph Smith—Matthew", "JS—M"],
+        names: ["Joseph Smith—Matthew", "JS-M"],
     },
     "js-h": {
         volume: "pgp",
         n_ch: 1,
-        names: ["Joseph Smith—History", "JS—H"],
+        names: ["Joseph Smith—History", "JS-H"],
     },
     "a-of-f": {
         volume: "pgp",
