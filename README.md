@@ -131,3 +131,13 @@ yarn build
 This plugin follows [semver](https://semver.org/).
 
 To publish a new release, tag it with `git tag -a <major.minor.patch> -m <message>`
+
+## Hymns
+
+Type `:Hymn:` and pick the suggestion to open a picker over the hymnbook,
+searchable by number or title. `:Hymn 193:` or `:Hymn amazed:` opens it with
+that search already typed. Choose a hymn, then click the lines you want, in
+any combination, and press *Insert Link*. The lines are inserted as the same
+kind of callout as a conference talk, with the hymn number and the text and
+music credits in the byline. Hymn numbers follow the hymnbook order of the
+Church's index, which matches the printed numbers of the English hymnal.
