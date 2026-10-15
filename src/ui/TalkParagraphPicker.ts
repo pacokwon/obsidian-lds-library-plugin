@@ -1,4 +1,4 @@
-import { App, Modal, requestUrl } from "obsidian";
+import { App, Modal, Notice, requestUrl } from "obsidian";
 import { AvailableLanguage } from "@/lang";
 import { expandResourceUrl } from "@/utils/api";
 import { findAuthor } from "@/utils/dom";
@@ -9,6 +9,8 @@ type Selection = {
     range: string;
     content: string[];
     author: { name: string; role: string };
+    /** The loaded page, so callers can read extra metadata (e.g. hymn credits). */
+    root: ParentNode;
 };
 export class TalkParagraphPicker extends Modal {
     // set of ids of paragraphs that are selected
@@ -61,19 +63,53 @@ export class TalkParagraphPicker extends Modal {
             if (id !== null) return [id];
             else return [];
         });
+        const setSelected = (id: string, on: boolean) => {
+            const target = tpl.content.getElementById(id) ?? this.contentEl.querySelector(`#${CSS.escape(id)}`);
+            if (on) this.selected.add(id);
+            else this.selected.delete(id);
+            if (target instanceof HTMLElement) target.toggleClass("selected", on);
+        };
+        let lastClicked: string | null = null;
+        const selectRun = (fromId: string, toId: string) => {
+            const a = this.ids.indexOf(fromId);
+            const b = this.ids.indexOf(toId);
+            if (a === -1 || b === -1) return false;
+            const [from, to] = a < b ? [a, b] : [b, a];
+            for (let i = from; i <= to; i++) setSelected(this.ids[i], true);
+            lastClicked = toId;
+            return true;
+        };
+        // Sweeping the mouse from one line to another, the way you would select
+        // text, selects the whole run. (A press and release on the same line is
+        // an ordinary click, handled below.)
+        let pressedId: string | null = null;
         ps.forEach((el) => {
-            el.addEventListener("click", (_) => {
+            el.addEventListener("mousedown", () => {
+                pressedId = el.getAttribute("id");
+            });
+            el.addEventListener("mouseup", () => {
+                const id = el.getAttribute("id");
+                if (pressedId !== null && id !== null && pressedId !== id) {
+                    selectRun(pressedId, id);
+                    this.contentEl.win.getSelection()?.removeAllRanges();
+                }
+                pressedId = null;
+            });
+        });
+        ps.forEach((el) => {
+            el.addEventListener("click", (evt) => {
                 const id = el.getAttribute("id");
 
                 if (id === null) return;
 
-                if (this.selected.has(id)) {
-                    this.selected.delete(id);
-                    el.removeClass("selected");
-                } else {
-                    this.selected.add(id);
-                    el.addClass("selected");
+                // Shift+click selects the whole run from the last clicked item to this one.
+                const shift = evt instanceof MouseEvent && evt.shiftKey;
+                if (shift && lastClicked !== null && lastClicked !== id) {
+                    if (selectRun(lastClicked, id)) return;
                 }
+
+                setSelected(id, !this.selected.has(id));
+                lastClicked = id;
             });
         });
 
@@ -115,6 +151,7 @@ export class TalkParagraphPicker extends Modal {
                 .join(","),
             content,
             author,
+            root: this.contentEl,
         };
     }
 
@@ -130,11 +167,19 @@ export class TalkParagraphPicker extends Modal {
             const selection = this.makeSelection();
 
             if (selection === null) {
-                this.close();
+                new Notice("Click one or more paragraphs or lines first, then Insert Link.");
                 return;
             }
 
-            this.onPick(selection);
+            try {
+                this.onPick(selection);
+            } catch (e) {
+                console.error(e);
+                new Notice(
+                    `Could not insert: ${e instanceof Error ? e.message : String(e)}`,
+                );
+                return;
+            }
             this.close();
         });
 

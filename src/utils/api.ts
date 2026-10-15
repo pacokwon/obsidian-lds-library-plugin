@@ -14,6 +14,10 @@ export function expandResourceUrl(
     return `${BASE_URL}/study/api/v3/language-pages/type/content?lang=${language}&uri=${path}`;
 }
 
+export function getHymnIndexUrl(lang: AvailableLanguage = "eng") {
+    return `${BASE_URL}/study/api/v3/language-pages/type/content?lang=${lang}&uri=/manual/hymns`;
+}
+
 export function getConferenceTalkListUrl(
     year: number,
     month: 4 | 10,
