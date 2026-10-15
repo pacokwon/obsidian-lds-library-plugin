@@ -10,6 +10,7 @@ export class HymnSuggestModal extends FuzzySuggestModal<HymnEntry> {
         private onChoose?: (v: HymnEntry) => void,
     ) {
         super(app);
+        this.limit = hymns.length;
         this.setPlaceholder("Hymn number or title");
     }
 
