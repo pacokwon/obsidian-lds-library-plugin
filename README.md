@@ -9,7 +9,7 @@ Easily insert your favorite scripture verses and selections from General Confere
 ## Table of Contents
 
 - [Quickstart](#quickstart)
-- [Features](#features) 
+- [Features](#features)
     - [Multiple Scripture Support](#multiple-scripture-support)
         - [How to Reference Verses](#how-to-reference-verses)
     - [General Conference Support](#general-conference-support)
@@ -44,7 +44,7 @@ The plugin can also be manually installed by:
 
 # Features
 
-## Multiple Scripture Support
+## Multiple Scriptures
 
 The [standard works](https://www.churchofjesuschrist.org/study/manual/gospel-topics/standard-works?lang=eng), or the volumes of scripture officially accepted by the Church of Jesus Christ of Latter-day Saints are available.
 
@@ -73,15 +73,13 @@ Inserted Callout Example:
 
 ![Verse Callout](https://github.com/user-attachments/assets/b74f0d9d-c07e-41bd-8219-be6a6f373787)
 
-## General Conference Support
-
-### How To Quote General Conference
+## General Conference
 
 Get started with inserting a General Conference quote using `:<Month Name> <Year Number>:`, which will open a Conference Picker prompt.
 
 ![Conference Talk Picker Prompt](https://github.com/user-attachments/assets/26873f4a-3e4f-4675-9dd1-36d913c9f84f)
 
-After accepting the suggestion, one can search for and choose a talk from that conference.
+After accepting the suggestion, you can search for and choose a talk from that conference.
 
 ![Conference Talk Picker](https://github.com/user-attachments/assets/aead481d-19c7-4042-941e-33e6e4044307)
 
@@ -90,7 +88,19 @@ Choose the paragraphs you would like to quote by clicking on them individually, 
 |![Paragraph Picker](https://github.com/user-attachments/assets/5f031cc8-d375-4304-acb0-2b3c019974b5)|![Create Link](https://github.com/user-attachments/assets/6e069204-fb44-488b-b67a-cfe9aa558694)|![Conference Talk Callout](https://github.com/user-attachments/assets/7ef642d9-da81-4cca-b7f3-11a7c95aa30d)|
 |--|--|--|
 
-## Multiple Language Support
+## Hymns
+
+Type `:Hymn:` and pick the suggestion to open a picker over the hymnbook,
+searchable by number or title. `:Hymn 193:` or `:Hymn amazed:` opens it with
+that search already typed.
+
+![Hymn Picker Prompt](https://github.com/user-attachments/assets/1126cafe-c720-4a52-9a5e-432264ffb6ca)
+
+After accepting a the suggestion, you can search for and choose a hymn from the entries.
+
+![Hymn Picker](https://github.com/user-attachments/assets/62c4a0f4-d71f-414b-9a8e-2660fc40c49b)
+
+## Multiple Languages
 
 ### Default Language
 The default language used for scriptures and conference talks can be set in the Settings tab of the plugin.
@@ -131,13 +141,3 @@ yarn build
 This plugin follows [semver](https://semver.org/).
 
 To publish a new release, tag it with `git tag -a <major.minor.patch> -m <message>`
-
-## Hymns
-
-Type `:Hymn:` and pick the suggestion to open a picker over the hymnbook,
-searchable by number or title. `:Hymn 193:` or `:Hymn amazed:` opens it with
-that search already typed. Choose a hymn, then click the lines you want, in
-any combination, and press *Insert Link*. The lines are inserted as the same
-kind of callout as a conference talk, with the hymn number and the text and
-music credits in the byline. Hymn numbers follow the hymnbook order of the
-Church's index, which matches the printed numbers of the English hymnal.
